@@ -23,15 +23,22 @@
 
 	<div class='col-md-6 col-md-offset-3'>
 		<h3 class='text-center'> What People are saying </h3>
-		<div class='well'>
-			<h4> <strong> UserName</strong> </h4>
-			<p> Lorem Ipsum </p>
-			<div class='mt24'>
-				<a href='#'> Like</a> | 
-				<a href='#'> Dislike</a> | 
-				<a href='#'> Edit</a> | 
-				<a href='#'> Delete</a> | 
+		
+		@foreach($posts as $post)
+			<div class='well'>
+				<h4> <strong> {{ $post->user->first_name }}</strong> </h4>
+				<p> {{ $post->created_at }} </p>
+				<p> {{ $post->body }} </p>
+				<div class='mt24'>
+					<a href='#'> Like</a> | 
+					<a href='#'> Dislike</a> 
+					@if(Auth::user() == $post->user)
+						| <a href='#'> Edit</a> | 
+						<a href='{{ route('deletePostRoute', ['post_id' => $post->id]) }}'> Delete</a>
+					@endif 
+				</div>
 			</div>
-		</div>
+		@endforeach
+		
 	</div>
 @endsection

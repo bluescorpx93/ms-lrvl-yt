@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class UserController extends Controller{
 
-	public function getDashboard(){
-		return view('dashboardView');
+	public function getUserById($user_id){
+		$user = User::find($user_id);
+		return view('user_profile', ['user' => $user]);
 	}
 
 	public function postSignUp(Request $req){
@@ -48,9 +49,18 @@ class UserController extends Controller{
 			'email' => $req['email'],	
 			'password' => $req['password']
 		]);
+
+		$message = 'Invalid Credentials';
+
 		if ($auth_result) {
 			return redirect()->route('dashboardRoute');
 		}
-		return redirect()->back();
+
+		return redirect()->back()->with(['message' => $message]);
+	}
+
+	public function getLogout(Request $req){
+		Auth::logout();
+		return redirect()->route('welcomeRoute');
 	}
 }

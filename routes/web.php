@@ -21,7 +21,7 @@ Route::post('/signup', [
 ]);
 
 Route::get('/dashboard', [
-	'uses'	=> 'UserController@getDashboard',
+	'uses'	=> 'PostController@getDashboard',
 	'as' 		=>	'dashboardRoute',
 	'middleware' => ['auth']
 ]);
@@ -34,4 +34,19 @@ Route::post('/signin', [
 Route::post('/createpost', [
 	'uses'	=> 'PostController@postCreatePost',
 	'as'	=>	'createPostRoute'
+]);
+
+Route::get('/deletepost/{post_id}', [
+	'uses' => 'PostController@getDeletePost',
+	'as' => 'deletePostRoute'
+]);
+
+Route::get('/logout', [
+	'uses' => 'UserController@getLogout',
+	'as' =>	'logoutRoute'
+]);
+
+Route::get('/getuser/{user_id}', [
+	'uses' => 'UserController@getUserById', 
+	'as' => 'getUserRoute'
 ]);

@@ -7,7 +7,7 @@ Welcome
 @section('div_content')
 	<div class='row'>
 
-		@include('includes/message-block');
+		@include('includes/message-block')
 		
 		<div class='col-md-6'>
 			<h3> Sign Up</h3>
