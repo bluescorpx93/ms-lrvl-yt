@@ -30,3 +30,8 @@ Route::post('/signin', [
 	'uses' => 'UserController@postSignIn',
 	'as' => 'signinRoute'
 ]);
+
+Route::post('/createpost', [
+	'uses'	=> 'PostController@postCreatePost',
+	'as'	=>	'createPostRoute'
+]);
