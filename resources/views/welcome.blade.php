@@ -6,6 +6,7 @@ Welcome
 
 @section('div_content')
 	<div class='row'>
+		
 		<div class='col-md-6'>
 			<h3> Sign Up</h3>
 			<form action="#" method="post">
