@@ -8,6 +8,10 @@ use App\User;
 
 class UserController extends Controller{
 
+	public function getDashboard(){
+		return view('dashboardView');
+	}
+
 	public function postSignUp(Request $req){
 		$email = $req['email'];
 		$first_name = $req['first_name'];
@@ -20,7 +24,7 @@ class UserController extends Controller{
 
 		$user->save();
 
-		return redirect()->back();
+		return redirect()->route('dashboardRoute');
 	}
 
 

@@ -19,3 +19,8 @@ Route::post('/signup', [
 	'uses' 	=>	'UserController@postSignup',
 	'as' 		=> 	'signupRoute'
 ]);
+
+Route::get('/dashboard', [
+	'uses'	=> 'UserController@getDashboard',
+	'as' 		=>	'dashboardRoute'
+]);
