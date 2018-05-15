@@ -2,7 +2,10 @@
 
 @section('div_content')
 
-<link href="{{ asset('css/cust.css') }}" rel="stylesheet" type="text/css" >
+	<link href="{{ asset('css/cust.css') }}" rel="stylesheet" type="text/css" >
+
+	@include('includes/message-block')
+
 	<div class='col-md-6 col-md-offset-3'>
 		<h3 class='text-center'> Say Something </h3>
 		<form action="{{ route('createPostRoute') }}" method='post'>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request as Request;
+use App\User as User;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class UserController extends Controller{
 
