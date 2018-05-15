@@ -11,5 +11,9 @@ class User extends Model implements Authenticatable
 
 	//Trait
 	use \Illuminate\Auth\Authenticatable;
+
+	public function posts(){
+		return $this->hasMany('App\Post');
+	}
 	
 }
