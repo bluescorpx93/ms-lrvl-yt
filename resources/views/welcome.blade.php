@@ -9,7 +9,8 @@ Welcome
 		
 		<div class='col-md-6'>
 			<h3> Sign Up</h3>
-			<form action="#" method="post">
+			<form action="{{ route('signupRoute') }}" method="post">
+				<input type='hidden' name='_token' value='{{ Session::token() }}'>
 				<div class='form-group'>
 					<label for="email"> Email</label>
 					<input type='text' class='form-control' name='email' id='email'>
