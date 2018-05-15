@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller{
 
@@ -24,11 +24,20 @@ class UserController extends Controller{
 
 		$user->save();
 
+		Auth::login($user);
+
 		return redirect()->route('dashboardRoute');
 	}
 
 
 	public function postSignIn(Request $req){
-
+		$auth_result = Auth::attempt([ 
+			'email' => $req['email'],	
+			'password' => $req['password']
+		]);
+		if ($auth_result) {
+			return redirect()->route('dashboardRoute');
+		}
+		return redirect()->back();
 	}
 }
