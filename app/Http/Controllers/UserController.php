@@ -13,6 +13,13 @@ class UserController extends Controller{
 	}
 
 	public function postSignUp(Request $req){
+
+		$this->validate($req, [
+			'email' =>	'required | email | unique:users',
+			'first_name' => 'required | max:120',
+			'password' => 'required | min:6'
+		]);
+
 		$email = $req['email'];
 		$first_name = $req['first_name'];
 		$password = bcrypt($req['password']);
@@ -31,6 +38,12 @@ class UserController extends Controller{
 
 
 	public function postSignIn(Request $req){
+
+		$this->validate($req, [
+			'email' =>	'required ',
+			'password' => 'required '
+		]);
+
 		$auth_result = Auth::attempt([ 
 			'email' => $req['email'],	
 			'password' => $req['password']
