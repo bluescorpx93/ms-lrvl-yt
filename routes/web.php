@@ -50,3 +50,12 @@ Route::get('/getuser/{user_id}', [
 	'uses' => 'UserController@getUserById', 
 	'as' => 'getUserRoute'
 ]);
+
+Route::post('/editpost', [
+	'uses' => 'PostController@editPostById',
+	'as' => 'editPostRoute'
+]);
+
+// Route::post('/editpost', function(\Illuminate\Http\Request $req){
+// 	return response()->json([ 'post_body' => $req['body'], 'post_id' => $req['post_id'] ]);
+// })->name('editPostRoute');
