@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request as Request;
+use Illuminate\Http\Response as Response;
 use App\User as User;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\File as File;
+use Illuminate\Support\Facades\Storage as Storage;
 
 class UserController extends Controller{
 
@@ -31,9 +34,7 @@ class UserController extends Controller{
 		$user->password = $password;
 
 		$user->save();
-
 		Auth::login($user);
-
 		return redirect()->route('dashboardRoute');
 	}
 
@@ -50,17 +51,39 @@ class UserController extends Controller{
 			'password' => $req['password']
 		]);
 
-		$message = 'Invalid Credentials';
-
 		if ($auth_result) {
 			return redirect()->route('dashboardRoute');
 		}
 
+		$message = 'Invalid Credentials';
+
 		return redirect()->back()->with(['message' => $message]);
+	}
+
+	public function editProfile(Request $req){
+		$this->validate($req, ['first_name' => 'required | max:50 | min:3']);
+
+		$user = Auth::user();
+		$user->first_name = $req['first_name'];
+		$user->update();
+
+		$file = $req->file('profile_image');
+		$filename = $req['first_name'] . '-' . $user->id . '.jpg';
+
+		Storage::disk('local')->put($filename, File::get($file)); 
+
+		return redirect()->route('getUserRoute', ['user_id' => Auth::user()->id ]);
 	}
 
 	public function getLogout(Request $req){
 		Auth::logout();
 		return redirect()->route('welcomeRoute');
 	}
+
+	public function getUserImage(Response $res, $filename){
+		$file = Storage::disk('local')->get($filename);
+		return new response($file, 200);
+	}
+
+
 }

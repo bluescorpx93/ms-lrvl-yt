@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title') Home @endsection
+
 @section('div_content')
 <script src='{{ asset('bootstrap/jquery.min.js')}}'> </script>
 <script src='{{ asset('bootstrap/bootstrap.min.js')}}'> </script>

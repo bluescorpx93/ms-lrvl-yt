@@ -56,6 +56,16 @@ Route::post('/editpost', [
 	'as' => 'editPostRoute'
 ]);
 
+Route::post('/editprofile', [
+	'uses' => 'UserController@editProfile',
+	'as' => 'updateProfileRoute'
+]);
+
+Route::get('/userimage/{filename}', [
+	'uses' => 'UserController@getUserImage',
+	'as' => 'profileImageRoute'
+]);
+
 // Route::post('/editpost', function(\Illuminate\Http\Request $req){
 // 	return response()->json([ 'post_body' => $req['body'], 'post_id' => $req['post_id'] ]);
 // })->name('editPostRoute');

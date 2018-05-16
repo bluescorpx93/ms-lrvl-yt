@@ -19,6 +19,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
+	      
 	      @if(Auth::check())
 	      	<a class="navbar-brand" href="/dashboard">LaravelApp</a>
 	      @else
@@ -28,7 +29,7 @@
 	      
 	    </div>
 
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <div class="collapse navbar-collapse" id="">
 	      <ul class="nav navbar-nav navbar-right">
 	        @if(Auth::check())
 	        	<li> <a href="{{ route('getUserRoute', ['user_id' => Auth::user()->id ]) }}"> {{ Auth::user()->first_name }} </a> </li>
