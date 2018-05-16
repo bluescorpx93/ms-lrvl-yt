@@ -67,10 +67,13 @@ class UserController extends Controller{
 		$user->first_name = $req['first_name'];
 		$user->update();
 
-		$file = $req->file('profile_image');
-		$filename = $req['first_name'] . '-' . $user->id . '.jpg';
-
-		Storage::disk('local')->put($filename, File::get($file)); 
+		if ($req->file('profile_image')){
+			$file = $req->file('profile_image');
+			$filename = $req['first_name'] . '-' . $user->id . '.jpg';
+		
+			$foldername = $req['first_name'] . "/";
+			Storage::disk('local')->put("$foldername".$filename, File::get($file)); 
+		}
 
 		return redirect()->route('getUserRoute', ['user_id' => Auth::user()->id ]);
 	}
@@ -80,8 +83,13 @@ class UserController extends Controller{
 		return redirect()->route('welcomeRoute');
 	}
 
-	public function getUserImage(Response $res, $filename){
-		$file = Storage::disk('local')->get($filename);
+	public function getUserImage(Response $res, $foldername, $filename){
+
+		// $file_in_path = $req['first_name'] . "/" . $filename;
+		// $file = Storage::disk('local')->get($file_in_path);
+
+		$file_in_path = $foldername . "/" . $filename;
+		$file = Storage::disk('local')->get($file_in_path);
 		return new response($file, 200);
 	}
 

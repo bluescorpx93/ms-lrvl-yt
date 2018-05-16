@@ -9,9 +9,9 @@
 <div class='col-md-6'>
 	<h3> {{ $user->first_name }}</h3>
 
-	@if(Storage::disk('local')->has($user->first_name . '-' . $user->id . '.jpg'))
+	@if(Storage::disk('local')->has($user->first_name . "/" . $user->first_name . '-' . $user->id . '.jpg'))
 	<div class='col-md-12'>
-		<img src="{{ route('profileImageRoute', ['filename' => $user->first_name . '-' . $user->id . '.jpg' ]) }}" class='img-responsive'>
+		<img src="{{ route('profileImageRoute', ['foldername' => $user->first_name, 'filename' => $user->first_name . '-' . $user->id . '.jpg' ]) }}" class='img-responsive'>
 	</div>
 	@endif
 </div>

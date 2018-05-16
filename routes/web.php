@@ -61,7 +61,7 @@ Route::post('/editprofile', [
 	'as' => 'updateProfileRoute'
 ]);
 
-Route::get('/userimage/{filename}', [
+Route::get('/userimage/${foldername}/{filename}', [
 	'uses' => 'UserController@getUserImage',
 	'as' => 'profileImageRoute'
 ]);
