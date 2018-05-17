@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request as Request;
 use App\Post as Post;
+use App\Like as Like;
 use Illuminate\Support\Facades\Auth as Auth;
 
 class PostController extends Controller{
@@ -13,7 +14,7 @@ class PostController extends Controller{
 		$posts = Post::orderBy('created_at', 'desc')->get();
 		return view('dashboardView', ['posts'=> $posts ]);
 	}
-	
+
 	public function postCreatePost(Request $req){
 
 		$this->validate($req, ['post_body' => 'required | min:10| max: 1000']);
@@ -53,4 +54,55 @@ class PostController extends Controller{
 
 		return response()->json(['message' => 'Post Updated', 'updated' => true ], 200);
 	}
+
+
+	public function postLikePost(Request $req){
+		$post_id = $req['post_id'];
+		$is_like = $req['is_like'] === 'true'? true: false;
+
+		$update_operation=  false;
+
+		$post = Post::find($post_id);
+		if (!$post){
+			return null;
+		}
+
+		$user = Auth::user();
+		$like_record = $user->likes()->where('post_id', $post_id)->first();
+
+		if ($like_record){
+			$existing_like_value = $like_record->like;
+			$update_operation = true;
+
+			if ($existing_like_value == $is_like){
+				$like_record->delete();
+				return null;
+			}
+		} else {
+			$like_record = new Like();
+		}
+
+		$like_record->like = $is_like;
+		$like_record->user_id = $user->id;
+		$like_record->post_id = $post_id;
+
+		if ($update_operation){
+			$like_record->udpate();
+		} else{
+			$like_record->save();
+		}
+
+		return null;
+	}
+
+
+
+
+
+
+
+
+
+
+
 }

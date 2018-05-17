@@ -33,13 +33,13 @@
 		<p> {{ $post->created_at }} </p>
 		<p id='post_id_{{ $post->id }}'> {{ $post->body }} </p>
 		<div class='mt24'>
-			<a href='#'> Like</a> | 
-			<a href='#'> Dislike</a> 
+			<a href='#' class='like_action' data-post_id="{{ $post->id }}" > {{ Auth::user()->likes->where('post_id', $post->id)->first() ? Auth::user()->likes->where('post_id', $post->id)->first()->like == 1 ? "Liked Already": "Like"  : 'Like' }}</a> |
+			<a href='#' class='like_action' data-post_id="{{ $post->id }}" > {{ Auth::user()->likes->where('post_id', $post->id)->first() ? Auth::user()->likes->where('post_id', $post->id)->first()->like == 0 ? "Disliked Already": "Dislike"  : 'Dislike' }}</a>
 			@if(Auth::user() == $post->user)
-			| <a href='#' data-id="{{ $post->id }}" class='editAncTag'> Edit</a> | 
+			| <a href='#' data-id="{{ $post->id }}" class='editAncTag'> Edit</a> |
 			{{-- | <a href='#' data-id="{{ $post->id }}" class='editAncTag' data-toggle="modal" data-target="#editModal" > Edit</a> |  --}}
 			<a href='{{ route('deletePostRoute', ['post_id' => $post->id]) }}'> Delete</a>
-			@endif 
+			@endif
 		</div>
 	</div>
 	@endforeach
@@ -66,4 +66,5 @@
 </div>
 
 <script src='{{ asset('js/editpost.js')}}'></script>
+<script src='{{ asset('js/likepost.js')}}'></script>
 @endsection

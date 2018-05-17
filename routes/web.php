@@ -47,7 +47,7 @@ Route::get('/logout', [
 ]);
 
 Route::get('/getuser/{user_id}', [
-	'uses' => 'UserController@getUserById', 
+	'uses' => 'UserController@getUserById',
 	'as' => 'getUserRoute'
 ]);
 
@@ -64,6 +64,12 @@ Route::post('/editprofile', [
 Route::get('/userimage/${foldername}/{filename}', [
 	'uses' => 'UserController@getUserImage',
 	'as' => 'profileImageRoute'
+]);
+
+Route::post('/likepost', [
+  'uses' => 'PostController@postLikePost',
+  'as' => 'likePostRoute'
+
 ]);
 
 // Route::post('/editpost', function(\Illuminate\Http\Request $req){
